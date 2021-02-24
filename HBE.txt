@@ -1,0 +1,111 @@
+local mt = getrawmetatable(game)
+
+local localPlayer = game.Players.LocalPlayer
+local camera = workspace.CurrentCamera
+
+
+local function isPartVisible(obj)   
+    local center = obj.Position
+
+--  No need to do any extra calculations if the center point is on the screen
+    local centerPoint, centerVisible = camera:WorldToScreenPoint(center)
+    if centerVisible then
+        return true, centerPoint
+    end
+    return false
+end 
+
+
+make_writeable(mt);
+local old_index = mt.__index;
+mt.__index = function(a, b)
+    if tostring(a) == "HumanoidRootPart" then
+        if tostring(b) == "Size" then
+            
+           return  Vector3.new(2,2,1)
+        end
+        
+        end
+    return old_index(a, b);
+    end
+         
+
+make_writeable(mt);
+local old_index = mt.__index;
+mt.__index = function(a, b)
+    if tostring(a) == "HumanoidRootPart" then
+        if tostring(b) == "Mass" then
+            
+           return 2.7999999523163
+        end
+        
+        end
+    return old_index(a, b);
+    end
+         
+
+
+
+local t = {}
+while true do
+    wait(0.1)
+local localplayer = game:GetService("Players").LocalPlayer
+local name = localplayer.Name
+local team = localplayer.Team
+for i, v in pairs(game:GetService("Workspace"):GetChildren()) do
+
+        
+        
+       
+if v:FindFirstChild("HumanoidRootPart") and v.Name ~= name and v:FindFirstChild("Torso")  then
+    if game:GetService("Players"):FindFirstChild(v.Name) then
+    if game:GetService("Players"):FindFirstChild(v.Name).Team ~= team then
+        _G.head = v.HumanoidRootPart
+--if  isPartVisible(v.Torso) then
+    local head = v.HumanoidRootPart
+    
+        local castPoints = {head.Position}
+       
+    local ignoreList = {}
+    for i,l in pairs( v:GetDescendants()) do
+   if l:IsA("Part") or l:IsA("MeshPart") and l.Name ~= "HumanoidRootPart" and l.Name ~= "Torso" then
+       table.insert(ignoreList,  (table.getn(ignoreList)+1), l )
+   end
+   end
+   -- end
+local ff = {}
+   local ff = workspace.CurrentCamera:GetPartsObscuringTarget(castPoints, ignoreList)
+   
+   if #ff < 1 then
+    
+   local head = v.HumanoidRootPart
+  
+  -- if v.Head:FindFirstChild("Mesh") then v.Head.Mesh:Destroy() end
+            head.Size = Vector3.new(4,5 ,1)
+            head.Transparency = 1
+            head.Color =Color3.fromRGB(255, 0, 0)
+            head.CanCollide = false
+ 
+    
+---- DO NOT CHANGE VALUES UNDER HERE AS THEY ARE THE SPOOF WHICH BYPASS THE ANTI CHEAT---- 
+
+
+
+
+else
+    _G.head.Color =Color3.fromRGB(163, 162, 165)
+_G.head.Size = Vector3.new(2, 2, 1)
+_G.head.Transparency = 0.8
+_G.head.CanCollide = true
+
+end
+
+
+
+
+
+    end
+end
+end
+end
+end
